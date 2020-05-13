@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Ttranslator</h2>
+
+<label for="input_lang">Input language:</label>
+<select id="input_lang">
+    <option value="Lt">Lithuanian</option>
+</select>
+
+<label for="output_lang">Output language:</label>
+<select id="input_lang">
+    <option value="Eng">English</option>
+</select>
+
+<br>
+<textarea id="input" name="input" rows="10" cols="300"></textarea>
+<textarea id="output" name="output" rows="10" cols="300"></textarea>
+<br>
+<br>
+<input type="button" value="Translate" id="btn_translate" />
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#btn_translate').click(function () {
+            $.ajax({
+                url: "/Translation/GetTranslation",
+                type: "GET",
+                data: { input_text: $("#input").val() },
+                success: function (data) {
+                    $("#output").val(data.output_text);
+                }
+            });
+        });
+    });
+</script>
